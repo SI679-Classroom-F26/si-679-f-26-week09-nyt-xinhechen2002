@@ -1,8 +1,15 @@
 import { MongoClient } from 'mongodb';
 import type { Db } from 'mongodb';
+import { getMongoUri, getDbName } from '../config.js';
 
-const MONGO_URI: string = 'mongodb://127.0.0.1:27017';
-const DB_NAME: string = 'week9';
+export const connect = async (
+  uri: string = getMongoUri(),
+  dbName: string = getDbName()
+): Promise<void> => {
+  client = new MongoClient(uri);
+  await client.connect();
+  database = client.db(dbName);
+};
 
 let client: MongoClient | null = null;
 let database: Db;
